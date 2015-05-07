@@ -79,10 +79,15 @@ class Cluster:
 			ax.set_zlabel("3rd eigenvector")
 			ax.w_zaxis.set_ticklabels([])
 		else:			
+			x_min, x_max = X_[:, 0].min() - .5, X_[:, 0].max() + .5
+			y_min, y_max = X_[:, 1].min() - .5, X_[:, 1].max() + .5
+
 			fig = plt.figure(figsize=(8, 6))
 			ax = fig.add_subplot(1,1,1)
 
 			ax.scatter(X_[:, 0], X_[:, 1], c=Y)
+			ax.set_xlabel('Sepal length')
+			ax.set_ylabel('Sepal width')
 
 			ax.set_title("Iris DataSet" + self.subtitle(error, elapsed_time))
 
@@ -125,15 +130,11 @@ class meanshift(Cluster):
 
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
-		self.params = {
-			"n_components" : CLUSTERS,
-			"n_clusters" : CLUSTERS,
-		}
+		self.params = {"n_components" : CLUSTERS}
 
 	def run(self):
-		X = manifold.SpectralEmbedding(self.params["n_components"]).fit_transform(self.X)
-		del self.params["n_components"]
-		k_means = KMeans(**self.params)
+		X = manifold.SpectralEmbedding(**self.params).fit_transform(self.X)
+		k_means = KMeans(n_clusters=CLUSTERS)
 		k_means.fit(self.X)
 		return k_means.labels_
 
@@ -186,20 +187,17 @@ class spectral(Cluster):
 
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
-		self.params = {
-			"n_clusters" : CLUSTERS,
-			"n_components": 3,
+		self.params = {"n_clusters" : CLUSTERS,
+			"n_components": 4,
 			"eigen_solver": 'arpack',
 			"assign_labels": 'kmeans',
-			"n_init": 1,
-			"weight": 5
+			"n_init": 1
 		}
 
 	def run(self):
-		X = manifold.SpectralEmbedding(n_components=self.params["n_components"]).fit_transform(self.X)
-		X_dist = metrics.pairwise.pairwise_distances(self.X, metric='euclidean')
-		X_sim = numpy.exp(-self.params["weight"]*X_dist / X_dist.std())
-		del self.params["weight"]
+		X = manifold.SpectralEmbedding(n_components=2).fit_transform(self.X)
+		X_dist = metrics.pairwise.pairwise_distances(X, metric='euclidean')
+		X_sim = numpy.exp(-5*X_dist / X_dist.std())
 		return spectral_clustering(X_sim, **self.params)
 
 class cmeans(Cluster):
