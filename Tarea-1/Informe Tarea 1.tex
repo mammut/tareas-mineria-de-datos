@@ -148,19 +148,26 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibu
 
 \begin{algorithm}[H]
   \begin{algorithmic}[1]
-    \State \textbf{powerIteration(A, x0, k, stop=False)}
-
-    \For{$i = 1, 2, 3, \ldots k$}
-        \State $u_{i-1} = {x_{i-1}}/{||x_{i-1}||_2}$
-        \State $x_i = A u_{i-1}$
-        \State $\lambda_{i} = u_{i-1}^{T}x_i$
+    \Procedure {K-means}{$\{\vec{x}_1,\dots,\vec{x}_m\}$, K}
+    \State $(\vec{s}_1,\vec{s}_2,\dots\vec{s}_K,) \leftarrow \textsc{SelectRandomSeeds}(\{\vec{x}_1,\dots,\vec{x}_m\}, K)$
+    \For{$k \leftarrow 1 \textbf{ to } K$}
+        \State $\vec{c}_k \leftarrow \vec{s}_k$
     \EndFor
 
-    \State $v_{dom} = {x_i}/{||x_i||_2}$
-    \State $\lambda_{dom} = \lambda_i$
-    \State \textbf{If (stop) return} ($\lambda_{dom}, v_{dom}$)
-    \State $C = A - \lambda_{dom}v_{dom}v_{dom}^{T}$
-    \State \textbf{return} ($\lambda_{dom}, v_{dom}$, powerIteration(C, $x_0$, k, True))
+    \While{ criterio convergencia no cumplido }
+      \For{$k \leftarrow 1 \textbf{ to } K$}
+        \State $C_k \leftarrow \{\}$
+      \EndFor
+      \For{ $i \leftarrow 1 \textbf{ to } m$ }
+        \State $ k \leftarrow \text{Min}_k \; \left\|\vec{c}_k - \vec{x}_i\right\| $ \Comment{encontrar el centroide mas cercano}
+        \State $ C_k \leftarrow C_k \cup \{\vec{x}_i\}$ \Comment{agregar al cluster}
+      \EndFor
+      \For{ $ k \leftarrow 1 \textbf{ to } K$ }
+        \State $\vec{c}_k \leftarrow \frac{1}{m_k}\sum_{\vec{x}\in C_k}{\vec{x}}$ \Comment{recomputación de centroides}
+      \EndFor
+    \EndWhile
+    \State \Return $\{C_1, \dots, C_K\}$
+    \EndProcedure
   \end{algorithmic}
   \caption{k-means}
   \label{kMeans}
