@@ -64,10 +64,10 @@ class Cluster:
 
 		return Y_, max(error1, error2), elapsed_time
 
-	def plot(self):
-		X = self.X
+	def plot(self, X_):
 		Y, error, elapsed_time = self.report()
 		if self.D3:
+			X = self.X
 			fig = plt.figure(figsize=(8, 6))
 			ax = Axes3D(fig, elev=-150, azim=110)
 			ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=Y)
@@ -78,14 +78,14 @@ class Cluster:
 			ax.w_yaxis.set_ticklabels([])
 			ax.set_zlabel("3rd eigenvector")
 			ax.w_zaxis.set_ticklabels([])
-		else:
-			x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
-			y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
+		else:			
+			x_min, x_max = X_[:, 0].min() - .5, X_[:, 0].max() + .5
+			y_min, y_max = X_[:, 1].min() - .5, X_[:, 1].max() + .5
 
 			fig = plt.figure(figsize=(8, 6))
 			ax = fig.add_subplot(1,1,1)
 
-			ax.scatter(X[:, 0], X[:, 1], c=Y)
+			ax.scatter(X_[:, 0], X_[:, 1], c=Y)
 			ax.set_xlabel('Sepal length')
 			ax.set_ylabel('Sepal width')
 
@@ -182,9 +182,23 @@ class dbscan(Cluster):
 		clustering.fit(self.X)
 		return clustering.labels_
 	
-def spectral(X):
-	return spectral_clustering(X, n_clusters=CLUSTERS, n_components=4,
-	eigen_solver='arpack', assign_labels='kmeans', n_init=1)
+class spectral(Cluster):
+	TITLE = "Spectral Clustering"
+
+	def __init__(self, X, Y):
+		Cluster.__init__(self, X, Y)
+		self.params = {"n_clusters" : CLUSTERS,
+			"n_components": 4,
+			"eigen_solver": 'arpack',
+			"assign_labels": 'kmeans',
+			"n_init": 1
+		}
+
+	def run(self):
+		X = manifold.SpectralEmbedding(n_components=2).fit_transform(self.X)
+		X_dist = metrics.pairwise.pairwise_distances(X, metric='euclidean')
+		X_sim = numpy.exp(-5*X_dist / X_dist.std())
+		return spectral_clustering(X_sim, **self.params)
 
 class cmeans(Cluster):
 	TITLE = "Fuzzy CMeans"
@@ -205,17 +219,12 @@ iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
 
-kmeans(X,Y).testing()
+X_ = manifold.MDS(n_components=2).fit_transform(X)
+
+#kmeans(X,Y).testing()
 
 
-Cluster(X,Y).plot()
-
-kmeans(X,Y).plot()
-meanshift(X,Y).plot()
-minibatch(X,Y).plot()
-ward(X,Y).plot()
-dbscan(X,Y).plot()
-hac(X,Y).plot()
-cmeans(X,Y).plot()
+for algorithm in [Cluster, kmeans, meanshift, minibatch, ward, spectral, dbscan, hac, cmeans]:
+	algorithm(X,Y).plot(X_)
 
 plt.show()
