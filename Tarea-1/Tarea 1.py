@@ -78,7 +78,7 @@ class Cluster:
 			ax.w_yaxis.set_ticklabels([])
 			ax.set_zlabel("3rd eigenvector")
 			ax.w_zaxis.set_ticklabels([])
-		else:			
+		else:
 			fig = plt.figure(figsize=(8, 6))
 			ax = fig.add_subplot(1,1,1)
 
@@ -93,8 +93,12 @@ class Cluster:
 			return (" - %s (Error %d/150).\nExecution time: %f [s]" % (self.TITLE, error, elapsed_time) if self.TITLE else "")
 
 	def testing(self):
-		a = [[(key, elem) for elem in self.testing_params[key]] for key in self.testing_params.keys()]
-		for params in [{elem2[0]: elem2[1] for elem2 in elem} for elem in reduce(conv, a)]:
+		conv_params =  reduce(conv, [[(key, elem) for elem in self.testing_params[key]] for key in self.testing_params.keys()])
+		if len(self.testing_params.keys()) == 1:
+			conv_params = [{elem[0]: elem[1]} for elem in conv_params]
+		else:
+			conv_params = [{elem2[0]: elem2[1] for elem2 in elem} for elem in conv_params]
+		for params in conv_params:
 			self.params = params
 			print params, "Error: %d. Tiempo: %f" % (self.report())[1:]
 
@@ -121,7 +125,7 @@ class kmeans(Cluster):
 
 
 class meanshift(Cluster):
-	TITLE = "Mini Batch K-Means"
+	TITLE = "Meanshift"
 
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
@@ -129,6 +133,16 @@ class meanshift(Cluster):
 			"n_components" : CLUSTERS,
 			"n_clusters" : CLUSTERS,
 		}
+
+		self.testing_params = {
+			"bandwidth": [None],
+			"bin_seeding": [False],
+			"seeds": [None],
+			"min_bin_freq": [1],
+			"cluster_all": [True],
+			"n_components" : [CLUSTERS],
+			"n_clusters" : [CLUSTERS],
+	    }
 
 	def run(self):
 		X = manifold.SpectralEmbedding(self.params["n_components"]).fit_transform(self.X)
@@ -142,7 +156,18 @@ class hac(Cluster):
 
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
-		self.params = {"n_clusters" : CLUSTERS, "linkage" : "complete"}
+
+		self.testing_params = {
+			"n_clusters": [2,3,4,5],
+			"affinity": ['euclidean'],
+			# "affinity": ['euclidean', 'l1', 'l2', 'manhattan', 'cosine', 'precomputed'], # <= ward solo permite euclidean
+			"connectivity": [None],
+			"n_components": [None],
+			"compute_full_tree": ['auto'],
+			"linkage": ['ward', 'complete', 'average']
+		}
+
+		# self.params = {"n_clusters" : CLUSTERS, "linkage" : "complete"}
 
 	def run(self):
 		clustering = AgglomerativeClustering(**self.params)
@@ -154,7 +179,18 @@ class minibatch(Cluster):
 
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
-		self.params = {"n_clusters" : CLUSTERS, "init": "k-means++"}
+		# self.params = {"n_clusters" : CLUSTERS, "init": "k-means++"}
+
+		self.testing_params = {
+			"n_clusters": [3],
+			"init": [ 'k-means++'],
+			"max_iter": [100],
+			"batch_size": [5, 10, 50],
+			"tol": [0.0, 0.5],
+			"init_size": [None],
+			"n_init": [3],
+			"reassignment_ratio": [0.01, 0.1]
+		}
 
 	#max_iter=100, batch_size=100, verbose=0, tol=0.0, max_no_improvement=10, n_init=3, reassignment_ratio=0.01
 	def run(self):
@@ -164,6 +200,14 @@ class minibatch(Cluster):
 
 class ward(Cluster):
 	TITLE = "Ward"
+	def __init__(self, X, Y):
+		Cluster.__init__(self, X, Y)
+
+		self.params = {"n_clusters" : CLUSTERS}
+		self.testing_params = {
+			"n_clusters": [3]
+		}
+
 	def run(self):
 		clustering = sklearn.cluster.Ward(**self.params)
 		clustering.fit(self.X)
@@ -180,7 +224,7 @@ class dbscan(Cluster):
 		clustering = sklearn.cluster.DBSCAN(**self.params)
 		clustering.fit(self.X)
 		return clustering.labels_
-	
+
 class spectral(Cluster):
 	TITLE = "Spectral Clustering"
 
@@ -223,8 +267,8 @@ Y = iris.target
 
 X_ = manifold.MDS(n_components=2).fit_transform(X)
 
-#kmeans(X,Y).testing()
-
+ward(X,Y).testing()
+exit()
 
 for algorithm in [Cluster, kmeans, meanshift, minibatch, ward, spectral, dbscan, hac, cmeans]:
 	algorithm(X,Y).plot(X_)
