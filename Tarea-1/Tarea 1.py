@@ -228,10 +228,19 @@ class spectral(Cluster):
 			"n_clusters" : CLUSTERS,
 			"n_components": 3,
 			"eigen_solver": 'arpack',
-			"assign_labels": 'kmeans',
+			"assign_labels": 'discretize',
 			"n_init": 1,
-			"weight": 5
+			"weight": 9.5
 		}
+
+		self.testing_params = {
+			"n_clusters" : [CLUSTERS],
+			"n_components": [3],
+			"eigen_solver": ['arpack'],
+			"assign_labels": ['discretize'],
+			"n_init": [1],
+			"weight": [i/10. for i in range(92,98)]
+		}		
 
 	def run(self):
 		X = manifold.SpectralEmbedding(n_components=self.params["n_components"]).fit_transform(self.X)
@@ -261,7 +270,7 @@ Y = iris.target
 
 X_ = manifold.MDS(n_components=2).fit_transform(X)
 
-meanshift(X,Y).testing()
+spectral(X,Y).testing()
 exit()
 
 for algorithm in [Cluster, kmeans, meanshift, minibatch, ward, spectral, dbscan, hac, cmeans]:
