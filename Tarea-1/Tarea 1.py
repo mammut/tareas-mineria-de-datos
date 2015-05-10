@@ -14,7 +14,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from sklearn import datasets
 
-from sklearn.cluster import KMeans, Ward, AgglomerativeClustering, DBSCAN, spectral_clustering
+from sklearn.cluster import KMeans, Ward, AgglomerativeClustering, DBSCAN, spectral_clustering, MeanShift
 from sklearn import manifold
 import skfuzzy
 
@@ -130,8 +130,7 @@ class meanshift(Cluster):
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
 		self.params = {
-			"n_components" : CLUSTERS,
-			"n_clusters" : CLUSTERS,
+
 		}
 
 		self.testing_params = {
@@ -139,15 +138,10 @@ class meanshift(Cluster):
 			"bin_seeding": [False],
 			"seeds": [None],
 			"min_bin_freq": [1],
-			"cluster_all": [True],
-			"n_components" : [CLUSTERS],
-			"n_clusters" : [CLUSTERS],
-	    }
+			"cluster_all": [True]	    }
 
 	def run(self):
-		X = manifold.SpectralEmbedding(self.params["n_components"]).fit_transform(self.X)
-		del self.params["n_components"]
-		k_means = KMeans(**self.params)
+		k_means = MeanShift(**self.params)
 		k_means.fit(self.X)
 		return k_means.labels_
 
@@ -267,7 +261,7 @@ Y = iris.target
 
 X_ = manifold.MDS(n_components=2).fit_transform(X)
 
-ward(X,Y).testing()
+meanshift(X,Y).testing()
 exit()
 
 for algorithm in [Cluster, kmeans, meanshift, minibatch, ward, spectral, dbscan, hac, cmeans]:
