@@ -85,6 +85,8 @@ class Cluster:
 			ax.scatter(X_[:, 0], X_[:, 1], c=Y)
 
 			ax.set_title("Iris DataSet" + self.subtitle(error, elapsed_time))
+			# if self.TITLE:
+			# 	fig.savefig('img/' + self.TITLE + '.png', bbox_inches='tight')
 
 	def subtitle(self, error, elapsed_time):
 		if error == 0 and elapsed_time == 0:
@@ -109,6 +111,13 @@ class kmeans(Cluster):
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
 
+		self.params = {
+		  "n_clusters": CLUSTERS,
+		  "tol": 0.1,
+		  "max_iter": 300,
+		  "n_jobs": 1
+		}
+
 		self.testing_params = {
 			"n_clusters": [3],
 			"n_init": [2,3,4],
@@ -123,22 +132,24 @@ class kmeans(Cluster):
 		k_means.fit(self.X)
 		return k_means.labels_
 
-
 class meanshift(Cluster):
 	TITLE = "Meanshift"
 
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
 		self.params = {
-
+			"bandwidth": 0.9,
+			"bin_seeding": True,
+			"cluster_all": False
 		}
 
 		self.testing_params = {
-			"bandwidth": [None],
-			"bin_seeding": [False],
+			"bandwidth": [0.9],
+			"bin_seeding": [True],
 			"seeds": [None],
 			"min_bin_freq": [1],
-			"cluster_all": [True]	    }
+			"cluster_all": [False]
+		}
 
 	def run(self):
 		k_means = MeanShift(**self.params)
@@ -198,8 +209,11 @@ class ward(Cluster):
 		Cluster.__init__(self, X, Y)
 
 		self.params = {"n_clusters" : CLUSTERS}
+
 		self.testing_params = {
-			"n_clusters": [3]
+			"n_clusters": [3],
+			"n_components": [None],
+			"compute_full_tree": [None]
 		}
 
 	def run(self):
@@ -212,7 +226,19 @@ class dbscan(Cluster):
 
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
-		self.params = {"min_samples" : CLUSTERS}
+		self.params = {
+			"min_samples" : 14,
+			"eps": 0.5
+		}
+
+		self.testing_params = {
+			"eps": [0.5],
+			"min_samples": [14],
+			"metric": ['euclidean'],
+			"algorithm": ['auto'],
+			"p": [None],
+			"random_state": [None]
+		}
 
 	def run(self):
 		clustering = sklearn.cluster.DBSCAN(**self.params)
@@ -240,7 +266,7 @@ class spectral(Cluster):
 			"assign_labels": ['discretize'],
 			"n_init": [1],
 			"weight": [i/10. for i in range(92,98)]
-		}		
+		}
 
 	def run(self):
 		X = manifold.SpectralEmbedding(n_components=self.params["n_components"]).fit_transform(self.X)
@@ -254,7 +280,16 @@ class cmeans(Cluster):
 
 	def __init__(self, X, Y):
 		Cluster.__init__(self, X, Y)
-		self.params = {"c": CLUSTERS, "m": 2, "error": None, "maxiter": 10, "seed": None}
+		self.params = {"c": CLUSTERS, "m": 0.01, "error": 0.3, "maxiter": 20, "seed": None}
+
+		self.testing_params = {
+			"c": [CLUSTERS],
+			"m": [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09],
+			"error": [0.0, 0.3],
+			"maxiter": [10],
+			"init": [None],
+			"seed": [None]
+		}
 
 	def run(self):
 		X = manifold.SpectralEmbedding(n_components=CLUSTERS).fit_transform(self.X)
@@ -264,14 +299,13 @@ class cmeans(Cluster):
 
 
 iris = datasets.load_iris()
-
 X = iris.data
 Y = iris.target
 
-X_ = manifold.MDS(n_components=2).fit_transform(X)
+# spectral(X,Y).testing()
+# exit()
 
-spectral(X,Y).testing()
-exit()
+X_ = manifold.MDS(n_components=2).fit_transform(X)
 
 for algorithm in [Cluster, kmeans, meanshift, minibatch, ward, spectral, dbscan, hac, cmeans]:
 	algorithm(X,Y).plot(X_)

@@ -21,7 +21,9 @@
 \usepackage{float}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{booktabs}
 \floatplacement{figure}{H}
+
 
 % Margenes
 \topmargin=-0.45in
@@ -30,6 +32,8 @@
 \textwidth=6.5in
 \textheight=9.0in
 \headsep=0.25in
+
+\renewcommand{\arraystretch}{1.2}
 
 % Header y footer
 \pagestyle{fancy}
@@ -101,6 +105,7 @@
   \small{\textsc{\tareaFecha}}\\
   \vspace{0.1in}
   \large{\textsc{Profesor Marcelo Mendoza}}
+  \vspace{1.5in}
 }
 
 \author{
@@ -108,13 +113,13 @@
     \small{juan.escalona@alumnos.usm.cl} \\
     \small{201073515-k}
     \and
-    \textit{Rafik Mas'ad} \\
+    \textit{Rafik Masad} \\
     \small{mailrafik@alumnos.usm.cl} \\
-    \small{2010735XX-X}
+    \small{201073519-2}
     \and
     \textit{Gianfranco Valentino}\\
     \small{mailgina@alumnos.usm.cl}\\
-    \small{2010735XX-X}
+    \small{2860574-9}
 }
 \date{}
 
@@ -124,7 +129,7 @@
 \begin{document}
 
 \maketitle
-% \newpage
+\newpage
 
 %----------------------------------------------------------------------------------------
 % Índice
@@ -139,39 +144,256 @@
 %----------------------------------------------------------------------------------------
 \section*{Introducción}
 
-\lipsum[3]
+En el presente informe se analizan los resultados obtenidos comparando diferentes técnicas de clustering sobre el dataset iris incluido en la librería \textit{sklearn}.
 
-\section*{Implementación y análisis}
+\section*{Análisis de los resultados obtenidos}
 
 \subsection*{1.1. \; k-means}
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque.
 
-\begin{algorithm}[H]
-  \begin{algorithmic}[1]
-    \Procedure {K-means}{$\{\vec{x}_1,\dots,\vec{x}_m\}$, K}
-    \State $(\vec{s}_1,\vec{s}_2,\dots\vec{s}_K,) \leftarrow \textsc{SelectRandomSeeds}(\{\vec{x}_1,\dots,\vec{x}_m\}, K)$
-    \For{$k \leftarrow 1 \textbf{ to } K$}
-        \State $\vec{c}_k \leftarrow \vec{s}_k$
-    \EndFor
+\begin{description}
+  \item[Algoritmo:] k-means
+  \item[Parámetros utilizados:] \hfill
+    \begin{itemize}
+      \item n\_clusters: 3
+      \item tol: 0.1
+      \item max\_iter: 300
+      \item n\_jobs: 1
+    \end{itemize}
+  \item[Resultados]\hfill
+    \begin{itemize}
+      \item Errores: 14
+      \item Tiempo de ejecución: 0.0123851 [s]
+    \end{itemize}
+\end{description}
 
-    \While{ criterio convergencia no cumplido }
-      \For{$k \leftarrow 1 \textbf{ to } K$}
-        \State $C_k \leftarrow \{\}$
-      \EndFor
-      \For{ $i \leftarrow 1 \textbf{ to } m$ }
-        \State $ k \leftarrow \text{Min}_k \; \left\|\vec{c}_k - \vec{x}_i\right\| $ \Comment{encontrar el centroide mas cercano}
-        \State $ C_k \leftarrow C_k \cup \{\vec{x}_i\}$ \Comment{agregar al cluster}
-      \EndFor
-      \For{ $ k \leftarrow 1 \textbf{ to } K$ }
-        \State $\vec{c}_k \leftarrow \frac{1}{m_k}\sum_{\vec{x}\in C_k}{\vec{x}}$ \Comment{recomputación de centroides}
-      \EndFor
-    \EndWhile
-    \State \Return $\{C_1, \dots, C_K\}$
-    \EndProcedure
-  \end{algorithmic}
-  \caption{k-means}
-  \label{kMeans}
-\end{algorithm}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.666\textwidth]{img/K-Means.png}
+  \caption{K-means++}
+\end{figure}
+\newpage
+
+
+
+\subsection*{1.2. \; Minibatch k-means}
+\begin{description}
+  \item[Algoritmo:] Minibatch k-means
+  \item[Parámetros utilizados:] \hfill
+    \begin{itemize}
+      \item n\_clusters: 3
+      \item reassignment\_ratio: 0.01
+      \item max\_iter: 100
+      \item batch\_size: 5
+      \item init: 'k-means++'
+      \item n\_init: 3
+      \item tol: 0.5
+    \end{itemize}
+  \item[Resultados]\hfill
+    \begin{itemize}
+      \item Errores: 15
+      \item Tiempo de ejecución: 0.016015 [s]
+    \end{itemize}
+\end{description}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.666\textwidth]{img/MiniBatchK-Means.png}
+  \caption{Minibatch k-means}
+\end{figure}
+
+En general k-means, al converger a un máximo local, es extremadamente dependiente de las semillas, explicando así las diferencias en la calidad de los resultados por ejecución.
+\newpage
+
+
+
+\subsection*{1.3. \; HAC}
+\begin{description}
+  \item[Algoritmo:] HAC
+  \item[Parámetros utilizados:] \hfill
+    \begin{itemize}
+      \item n\_clusters: 3
+      \item affinity: euclidean
+      \item n\_components: None
+      \item linkage: average
+    \end{itemize}
+  \item[Resultados]\hfill
+    \begin{itemize}
+      \item Errores: 16
+      \item Tiempo de ejecución: 0.002657 [s]
+    \end{itemize}
+\end{description}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.666\textwidth]{img/HAC.png}
+  \caption{HAC}
+\end{figure}
+
+\newpage
+
+
+
+
+\subsection*{1.4. \; Ward}
+\begin{description}
+  \item[Algoritmo:] Ward
+  \item[Parámetros utilizados:] \hfill
+    \begin{itemize}
+      \item n\_clusters: 3
+    \end{itemize}
+  \item[Resultados]\hfill
+    \begin{itemize}
+      \item Errores: 16
+      \item Tiempo de ejecución: 0.011104 [s]
+    \end{itemize}
+\end{description}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.666\textwidth]{img/Ward.png}
+  \caption{Ward}
+\end{figure}
+
+\newpage
+
+
+
+
+\subsection*{1.5. \; DBScan}
+
+\begin{description}
+  \item[Algoritmo:] DBScan
+  \item[Parámetros utilizados:] \hfill
+    \begin{itemize}
+      \item min\_samples: 14
+      \item eps: 0.5
+    \end{itemize}
+  \item[Resultados]\hfill
+    \begin{itemize}
+      \item Errores: 22
+      \item Tiempo de ejecución: 0.031344 [s]
+    \end{itemize}
+\end{description}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.666\textwidth]{img/DBScan.png}
+  \caption{DBScan}
+\end{figure}
+
+\newpage
+
+
+
+
+
+\subsection*{1.6. \; C-Means}
+
+\begin{description}
+  \item[Algoritmo:] C-Means
+  \item[Parámetros utilizados:] \hfill
+    \begin{itemize}
+      \item c: 3
+      \item m: 0.01
+      \item error: 0.3
+      \item maxiter: 20
+      \item seed: None
+    \end{itemize}
+  \item[Resultados]\hfill
+    \begin{itemize}
+      \item Errores: 10-50\footnote{Muy variable}
+      \item Tiempo de ejecución: 0.017491 [s]
+    \end{itemize}
+\end{description}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.666\textwidth]{img/FuzzyCMeans.png}
+  \caption{C-Means}
+\end{figure}
+
+\newpage
+
+
+
+
+\subsection*{1.7. \; Mean shift}
+
+\begin{description}
+  \item[Algoritmo:] Mean shift
+  \item[Parámetros utilizados:] \hfill
+    \begin{itemize}
+      \item bandwidth: 0.9
+      \item bin\_seeding: True
+      \item min\_bin\_freq: 1
+      \item cluster\_all: False
+    \end{itemize}
+  \item[Resultados]\hfill
+    \begin{itemize}
+      \item Errores: 33
+      \item Tiempo de ejecución: 0.080781 [s]
+    \end{itemize}
+\end{description}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.666\textwidth]{img/Meanshift.png}
+  \caption{Mean shift}
+\end{figure}
+
+\newpage
+
+
+
+
+\subsection*{1.8. \; Spectral Clustering}
+
+\begin{description}
+  \item[Algoritmo:] Spectral Clustering
+  \item[Parámetros utilizados:] \hfill
+    \begin{itemize}
+      \item n\_clusters: 3
+      \item n\_components: 3
+      \item eigen\_solver: ‘arpack’
+      \item assign\_labels: ‘discretize’
+      \item n\_init: 1
+      \item weight: 9.5
+    \end{itemize}
+  \item[Resultados]\hfill
+    \begin{itemize}
+      \item Errores: 6
+      \item Tiempo de ejecución: 0.064943 [s]
+    \end{itemize}
+\end{description}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.666\textwidth]{img/SpectralClustering.png}
+  \caption{Spectral Clustering}
+\end{figure}
+
+\newpage
+
+
+\subsection*{2 \; Tabla comparativa}
+En la siguiente tabla se resumen los errores y tiempos de cada algoritmo
+\begin{center}
+  \begin{tabular*}{0.666\textwidth}{@{\extracolsep{\fill}}l l l@{}}
+      \midrule[1pt]
+      Algoritmo & Errores & Tiempo [s] \\
+      \midrule[0.4pt]
+      Spectral Clustering  & 6     & 0.064943  \\
+      k-means              & 14    & 0.012385  \\
+      Minibatch k-means    & 15    & 0.016015  \\
+      HAC                  & 16    & 0.002657  \\
+      Ward                 & 16    & 0.011104  \\
+      DBScan               & 22    & 0.031344  \\
+      Mean shift           & 33    & 0.080781  \\
+      C-Means              & 10-50 & 0.017491  \\
+      \midrule[0.4pt]
+  \end{tabular*}
+\end{center}
+
 
 \section*{Conclusiones}
 
@@ -180,12 +402,12 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibu
 \section*{Referencias}
 
   \begin{itemize}
-    \item Sauer, Timothy (2011). Numerical Analysis. 2nd ed. Pearson.
+    \item ---
   \end{itemize}
 
 \section*{Anexo}
 
-  % \python{../Codigos/p2}{Pregunta 2. Comparacion métodos numericos para eigenvalues}
+  % \python{Tarea 1}{Implementación de los algoritmos}
   % \python{../Codigos/p3}{Pregunta 3. }
 
 \end{document}
