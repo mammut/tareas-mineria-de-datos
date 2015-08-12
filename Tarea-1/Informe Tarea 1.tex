@@ -110,15 +110,15 @@
 
 \author{
     \textit{Juan Pablo Escalona} \\
-    \small{juan.escalona@alumnos.usm.cl} \\
+    \small{juan.escalonag@alumnos.usm.cl} \\
     \small{201073515-k}
     \and
     \textit{Rafik Masad} \\
-    \small{mailrafik@alumnos.usm.cl} \\
+    \small{rafik.masad@alumnos.usm.cl} \\
     \small{201073519-2}
     \and
     \textit{Gianfranco Valentino}\\
-    \small{mailgina@alumnos.usm.cl}\\
+    \small{gianfranco.valentino@alumnos.usm.cl}\\
     \small{2860574-9}
 }
 \date{}
@@ -144,18 +144,20 @@
 %----------------------------------------------------------------------------------------
 \section*{Introducción}
 
-En el presente informe se analizan los resultados obtenidos comparando diferentes técnicas de clustering sobre el dataset iris incluido en la librería \textit{sklearn}. 
+En el presente informe se analizan los resultados obtenidos comparando diferentes técnicas de clustering sobre el dataset iris incluido en la librería \textit{sklearn}.
 
 \section*{Análisis de los resultados obtenidos}
 Se analizaron una gran diversidad de algoritmos, pero hay ciertos parámetros que son comunes entre ellos. Haciendo el símil con la teoría, tenemos que \emph{n\_clusters} corresponde a $K$, para ciertos
 algoritmos que esperan dicho input. También existen diversas condiciones de termino, estas pueden considerarse como \emph{tol}, o tolerancia, es decir, cuanto es el máximo numero de cambios de puntos clasificados entre iteraciones
-para terminar el algoritmo. Por ejemplo, 0.1 significa que si entre dos iteraciones consecutivas, el numero de puntos que cambiaron de cluster, es menor o igual que el 10\% del total de datos, se termina el algoritmo. Por otro lado, también 
+para terminar el algoritmo. Por ejemplo, 0.1 significa que si entre dos iteraciones consecutivas, el numero de puntos que cambiaron de cluster, es menor o igual que el 10\% del total de datos, se termina el algoritmo. Por otro lado, también
 se limita el número máximo de iteraciones, ya que si bien, los métodos convergen a máximos locales, dependiendo del dataset y las semillas, podría tomar demasiadas iteraciones, aun cuando la solución es aceptable.
 
 Para definir una medida común de errores, se intenta ver los labels originales, o bien, los que vienen con el dataset. Luego se comparan los grupos formados, con los esperados y se cuentan los puntos clasificados incorrectamente.
 
 Ahora bien, lo último a tener en cuenta, es que los algoritmos que dependen de semillas, tienen resultados muy distintos dependiendo de estas, ya que al converger a máximos locales, el punto inicial es determinante, es por ello, que se realizan
 multiples ejecuciones, y se mantiene el mejor resultado.
+
+\newpage
 
 \subsection*{1.1. \; K-means}
 
@@ -415,13 +417,13 @@ En la siguiente tabla se resumen los errores y tiempos de cada algoritmo
 \section*{Conclusiones}
 En conclusion, podemos observar que el mejor resultado fue Spectral Clustering, y que los algoritmos que utilizan semillas, son muy dependientes de estas, por lo que se aplican técnicas como ejecuciones simultáneas con distintas semillas. Además, hay que recalcar el trade-off entre calidad y tiempo, si bien Spectral Clustering, tuvo el mejor resultado,  comparando con el resto de los algoritmos, en general tiende a demorarse entre 3 a 6 veces más aproximadamente. Y debemos tener en cuenta, que este dataset es de juguete, y que el comportamiento no necesariamente es el mismo al aumentar el número de K, y el número de datos, por lo que la técnica a utilizar debe considerar el comportamiento de los algoritmos frente a las distintas entradas, por lo que no habría un algoritmo único a utilizar frente a todos los casos.
 
-\section*{Referencias}
+% \section*{Referencias}
 
-  \begin{itemize}
-    \item ---
-  \end{itemize}
+%   \begin{itemize}
+%     \item ---
+%   \end{itemize}
 
-\section*{Anexo}
+% \section*{Anexo}
 
   % \python{Tarea 1}{Implementación de los algoritmos}
   % \python{../Codigos/p3}{Pregunta 3. }

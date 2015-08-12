@@ -302,6 +302,8 @@ iris = datasets.load_iris()
 X = iris.data
 Y = iris.target
 
+## Para probar diferentes parametros, modificar variable testing_params de la clase
+## con la que se desea jugar
 # spectral(X,Y).testing()
 # exit()
 
