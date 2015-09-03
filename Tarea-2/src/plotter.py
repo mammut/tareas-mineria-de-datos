@@ -7,8 +7,21 @@ import subprocess
 from scipy.interpolate import interp1d
 import numpy as np
 
-RUN = "./run.sh"
 INPUT = "supermarket.arff"
+RUN = "./run.sh"
+FILTER = "./filter.sh"
+filtered = "supermarket-filtered.arff"
+filter_indexes = map(lambda x: str(x) ,
+                        [
+                            13, # bread and cake
+                            86  # vegetables
+                        ])
+if filter_indexes:
+    cmd = [FILTER, INPUT, filtered,  ",".join(filter_indexes)]
+    subprocess.call(cmd)
+else:
+    filtered = INPUT
+
 c = map(lambda x: str(x/100.0), range(85, 96))
 alg_minsup = {
     "Apriori": ['0.1', '0.15'],
@@ -21,7 +34,7 @@ for alg, minsups in alg_minsup.items():
     for minsup in minsups:
         for conf in c:
             filename = '-'.join([alg,minsup,conf])+"-out.txt"
-            cmd = [RUN, INPUT, filename, conf, minsup, alg_type[alg]];
+            cmd = [RUN, filtered, filename, conf, minsup, alg_type[alg]];
             subprocess.call(cmd)
 exit()
 
