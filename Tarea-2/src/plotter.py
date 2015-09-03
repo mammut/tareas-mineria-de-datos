@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-
 import matplotlib.pyplot as plt
 import subprocess
 from scipy.interpolate import interp1d
@@ -38,18 +37,24 @@ for alg, minsups in alg_minsup.items():
             subprocess.call(cmd)
 exit()
 
+
 x = range(1,11)
-x_interp   = np.linspace(1, len(x), 30)
 y  = map(lambda i: i**2, x)
-y_interp = np.interp(x_interp, x, y)
+plotter(x, y)
 
-fig, ax1 = plt.subplots()
-ax1.plot(x, y, 'bo', x_interp, y_interp, 'b-')
+def plotter(x, y, filename = 'foo.png', interp_points = 30, title = 'Alg wtih Min Sup = minsup', x_title = 'Confidence', y_title = '# Rules'):
+    x_interp   = np.linspace(min(x), max(x), interp_points)
+    y_interp = np.interp(x_interp, x, y)
 
-ax1.set_xlabel('t_min')
-ax1.set_ylabel('Creditos/costo', color="r")
+    fig, ax1 = plt.subplots()
+    ax1.set_xlabel(x_title, fontweight = 'bold')
+    ax1.set_ylabel(y_title, fontweight = 'bold')
+    fig.suptitle(title, fontsize = 14, fontweight = 'bold')
 
-for tl in ax1.get_yticklabels():
-    tl.set_color('r')
+    ax1.plot(x, y, 'bo', x_interp, y_interp, 'b-')
 
-plt.show()
+    plt.savefig(filename, bbox_inches='tight')
+    # plt.show()
+
+
+
