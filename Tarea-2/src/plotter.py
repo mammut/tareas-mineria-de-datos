@@ -58,7 +58,7 @@ for alg, minsups in alg_minsup.items():
             subprocess.call(cmd)
 
             weka_file = open(filename)
-            last = None
+            last = 0
             for line in weka_file:
                 mt = MATCHER.match(line)
                 if mt:
@@ -67,7 +67,5 @@ for alg, minsups in alg_minsup.items():
             ys.append(last)
         graph_name =  alg+"-"+minsup
         plotter(c_float, ys, filename=graph_name+".png",  title=alg+" MinSup "+minsup)
-        break
-    break
 
 
