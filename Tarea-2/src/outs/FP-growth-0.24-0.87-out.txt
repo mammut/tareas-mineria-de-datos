@@ -1,0 +1,10 @@
+FPGrowth found 3 rules (displaying top 3)
+
+1. [frozen foods=t, total=high]: 1273 ==> [bread and cake=t]: 1117   <conf:(0.88)> lift:(1.22) lev:(0.04) conv:(2.27) 
+2. [fruit=t, frozen foods=t, biscuits=t]: 1309 ==> [bread and cake=t]: 1143   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.2) 
+3. [baking needs=t, total=high]: 1280 ==> [bread and cake=t]: 1117   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.19) 
+
+=== Evaluation ===
+
+Elapsed time: 0.831s
+

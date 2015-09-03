@@ -6,6 +6,7 @@ import subprocess
 from scipy.interpolate import interp1d
 import numpy as np
 import re
+import os.path
 
 
 
@@ -21,7 +22,6 @@ def plotter(x, y, filename = 'foo.png', interp_points = 30, title = 'Alg wtih Mi
     ax1.plot(x, y, 'bo', x_interp, y_interp, 'b-')
 
     plt.savefig(filename)
-    # plt.show()
 
 
 INPUT = "supermarket.arff"
@@ -31,8 +31,8 @@ MATCHER = re.compile(r'.*?([\d]+)\. .*')
 filtered = "supermarket-filtered.arff"
 filter_indexes = map(lambda x: str(x) ,
                         [
-                            13, # bread and cake
-                            86  # vegetables
+                            # 13, # bread and cake
+                            # 86  # vegetables
                         ])
 if filter_indexes:
     cmd = [FILTER, INPUT, filtered,  ",".join(filter_indexes)]
@@ -53,19 +53,20 @@ for alg, minsups in alg_minsup.items():
         filename = None
         ys = []
         for conf in c:
-            filename = '-'.join([alg,minsup,conf])+"-out.txt"
-            cmd = [RUN, filtered, filename, conf, minsup, alg_type[alg]];
-            subprocess.call(cmd)
+            filename = 'outs/'+'-'.join([alg,minsup,conf])+"-out.txt"
+
+            if not os.path.isfile(filename):
+                cmd = [RUN, filtered, filename, conf, minsup, alg_type[alg]];
+                subprocess.call(cmd)
 
             weka_file = open(filename)
             last = 0
             for line in weka_file:
                 mt = MATCHER.match(line)
+
                 if mt:
                     last = mt.groups()[-1]
             weka_file.close()
             ys.append(last)
         graph_name =  alg+"-"+minsup
-        plotter(c_float, ys, filename=graph_name+".png",  title=alg+" MinSup "+minsup)
-
-
+        plotter(c_float, ys, filename='img/'+graph_name+".png",  title=alg+" MinSup "+minsup)

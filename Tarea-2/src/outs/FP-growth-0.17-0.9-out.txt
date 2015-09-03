@@ -1,0 +1,13 @@
+FPGrowth found 6 rules (displaying top 6)
+
+1. [fruit=t, biscuits=t, total=high]: 954 ==> [bread and cake=t]: 866   <conf:(0.91)> lift:(1.26) lev:(0.04) conv:(3) 
+2. [fruit=t, frozen foods=t, total=high]: 969 ==> [bread and cake=t]: 877   <conf:(0.91)> lift:(1.26) lev:(0.04) conv:(2.92) 
+3. [milk-cream=t, biscuits=t, total=high]: 907 ==> [bread and cake=t]: 820   <conf:(0.9)> lift:(1.26) lev:(0.04) conv:(2.89) 
+4. [vegetables=t, biscuits=t, total=high]: 950 ==> [bread and cake=t]: 858   <conf:(0.9)> lift:(1.25) lev:(0.04) conv:(2.86) 
+5. [fruit=t, baking needs=t, total=high]: 963 ==> [bread and cake=t]: 869   <conf:(0.9)> lift:(1.25) lev:(0.04) conv:(2.84) 
+6. [fruit=t, tissues-paper prd=t, total=high]: 878 ==> [bread and cake=t]: 792   <conf:(0.9)> lift:(1.25) lev:(0.03) conv:(2.83) 
+
+=== Evaluation ===
+
+Elapsed time: 0.992s
+

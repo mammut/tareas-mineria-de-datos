@@ -1,0 +1,117 @@
+
+Apriori
+=======
+
+Minimum support: 0.15 (694 instances)
+Minimum metric <confidence>: 0.88
+Number of cycles performed: 17
+
+Generated sets of large itemsets:
+
+Size of set of large itemsets L(1): 44
+
+Size of set of large itemsets L(2): 380
+
+Size of set of large itemsets L(3): 910
+
+Size of set of large itemsets L(4): 633
+
+Size of set of large itemsets L(5): 105
+
+Size of set of large itemsets L(6): 1
+
+Best rules found:
+
+   1. biscuits=t frozen foods=t fruit=t total=high 788 ==> bread and cake=t 723    conf:(0.92)
+   2. baking needs=t biscuits=t fruit=t total=high 760 ==> bread and cake=t 696    conf:(0.92)
+   3. baking needs=t frozen foods=t fruit=t total=high 770 ==> bread and cake=t 705    conf:(0.92)
+   4. biscuits=t fruit=t vegetables=t total=high 815 ==> bread and cake=t 746    conf:(0.92)
+   5. party snack foods=t fruit=t total=high 854 ==> bread and cake=t 779    conf:(0.91)
+   6. biscuits=t frozen foods=t vegetables=t total=high 797 ==> bread and cake=t 725    conf:(0.91)
+   7. baking needs=t biscuits=t vegetables=t total=high 772 ==> bread and cake=t 701    conf:(0.91)
+   8. biscuits=t fruit=t total=high 954 ==> bread and cake=t 866    conf:(0.91)
+   9. frozen foods=t fruit=t vegetables=t total=high 834 ==> bread and cake=t 757    conf:(0.91)
+  10. frozen foods=t fruit=t total=high 969 ==> bread and cake=t 877    conf:(0.91)
+  11. baking needs=t fruit=t vegetables=t total=high 831 ==> bread and cake=t 752    conf:(0.9)
+  12. biscuits=t milk-cream=t total=high 907 ==> bread and cake=t 820    conf:(0.9)
+  13. biscuits=t vegetables=t total=high 950 ==> bread and cake=t 858    conf:(0.9)
+  14. baking needs=t fruit=t total=high 963 ==> bread and cake=t 869    conf:(0.9)
+  15. tissues-paper prd=t fruit=t total=high 878 ==> bread and cake=t 792    conf:(0.9)
+  16. margarine=t fruit=t total=high 818 ==> bread and cake=t 737    conf:(0.9)
+  17. baking needs=t biscuits=t frozen foods=t fruit=t vegetables=t 796 ==> bread and cake=t 716    conf:(0.9)
+  18. baking needs=t biscuits=t frozen foods=t total=high 825 ==> bread and cake=t 742    conf:(0.9)
+  19. frozen foods=t milk-cream=t total=high 941 ==> bread and cake=t 846    conf:(0.9)
+  20. milk-cream=t fruit=t vegetables=t total=high 808 ==> bread and cake=t 725    conf:(0.9)
+  21. milk-cream=t fruit=t total=high 951 ==> bread and cake=t 852    conf:(0.9)
+  22. biscuits=t frozen foods=t milk-cream=t vegetables=t 915 ==> bread and cake=t 819    conf:(0.9)
+  23. milk-cream=t margarine=t total=high 809 ==> bread and cake=t 724    conf:(0.89)
+  24. biscuits=t margarine=t fruit=t vegetables=t 856 ==> bread and cake=t 766    conf:(0.89)
+  25. juice-sat-cord-ms=t fruit=t total=high 855 ==> bread and cake=t 765    conf:(0.89)
+  26. biscuits=t frozen foods=t total=high 1006 ==> bread and cake=t 900    conf:(0.89)
+  27. biscuits=t frozen foods=t fruit=t vegetables=t 1039 ==> bread and cake=t 929    conf:(0.89)
+  28. sauces-gravy-pkle=t fruit=t total=high 848 ==> bread and cake=t 758    conf:(0.89)
+  29. baking needs=t frozen foods=t vegetables=t total=high 807 ==> bread and cake=t 721    conf:(0.89)
+  30. fruit=t vegetables=t total=high 1050 ==> bread and cake=t 938    conf:(0.89)
+  31. biscuits=t frozen foods=t milk-cream=t fruit=t 941 ==> bread and cake=t 840    conf:(0.89)
+  32. frozen foods=t tissues-paper prd=t total=high 912 ==> bread and cake=t 814    conf:(0.89)
+  33. baking needs=t milk-cream=t margarine=t fruit=t 827 ==> bread and cake=t 738    conf:(0.89)
+  34. party snack foods=t milk-cream=t total=high 817 ==> bread and cake=t 729    conf:(0.89)
+  35. baking needs=t milk-cream=t total=high 955 ==> bread and cake=t 852    conf:(0.89)
+  36. party snack foods=t vegetables=t total=high 853 ==> bread and cake=t 761    conf:(0.89)
+  37. tissues-paper prd=t vegetables=t total=high 907 ==> bread and cake=t 809    conf:(0.89)
+  38. biscuits=t party snack foods=t total=high 892 ==> bread and cake=t 795    conf:(0.89)
+  39. baking needs=t biscuits=t total=high 986 ==> bread and cake=t 878    conf:(0.89)
+  40. biscuits=t frozen foods=t margarine=t fruit=t 811 ==> bread and cake=t 722    conf:(0.89)
+  41. tissues-paper prd=t milk-cream=t total=high 847 ==> bread and cake=t 754    conf:(0.89)
+  42. biscuits=t margarine=t total=high 856 ==> bread and cake=t 762    conf:(0.89)
+  43. frozen foods=t vegetables=t total=high 999 ==> bread and cake=t 889    conf:(0.89)
+  44. biscuits=t frozen foods=t tissues-paper prd=t vegetables=t 795 ==> bread and cake=t 707    conf:(0.89)
+  45. baking needs=t biscuits=t milk-cream=t margarine=t 794 ==> bread and cake=t 706    conf:(0.89)
+  46. frozen foods=t party snack foods=t total=high 904 ==> bread and cake=t 803    conf:(0.89)
+  47. baking needs=t party snack foods=t total=high 886 ==> bread and cake=t 787    conf:(0.89)
+  48. fruit=t total=high 1243 ==> bread and cake=t 1104    conf:(0.89)
+  49. biscuits=t frozen foods=t margarine=t vegetables=t 811 ==> bread and cake=t 720    conf:(0.89)
+  50. baking needs=t vegetables=t total=high 1001 ==> bread and cake=t 888    conf:(0.89)
+  51. biscuits=t frozen foods=t milk-cream=t margarine=t 784 ==> bread and cake=t 695    conf:(0.89)
+  52. margarine=t vegetables=t total=high 862 ==> bread and cake=t 764    conf:(0.89)
+  53. baking needs=t frozen foods=t party snack foods=t fruit=t 791 ==> bread and cake=t 701    conf:(0.89)
+  54. baking needs=t margarine=t fruit=t vegetables=t 919 ==> bread and cake=t 814    conf:(0.89)
+  55. milk-cream=t vegetables=t total=high 953 ==> bread and cake=t 844    conf:(0.89)
+  56. juice-sat-cord-ms=t biscuits=t frozen foods=t fruit=t 856 ==> bread and cake=t 758    conf:(0.89)
+  57. biscuits=t frozen foods=t tissues-paper prd=t fruit=t 810 ==> bread and cake=t 717    conf:(0.89)
+  58. baking needs=t frozen foods=t total=high 1018 ==> bread and cake=t 901    conf:(0.89)
+  59. frozen foods=t margarine=t total=high 870 ==> bread and cake=t 770    conf:(0.89)
+  60. baking needs=t biscuits=t party snack foods=t fruit=t 814 ==> bread and cake=t 720    conf:(0.88)
+  61. sauces-gravy-pkle=t vegetables=t total=high 883 ==> bread and cake=t 781    conf:(0.88)
+  62. biscuits=t tissues-paper prd=t total=high 891 ==> bread and cake=t 788    conf:(0.88)
+  63. biscuits=t frozen foods=t party snack foods=t fruit=t 872 ==> bread and cake=t 771    conf:(0.88)
+  64. baking needs=t biscuits=t frozen foods=t milk-cream=t 932 ==> bread and cake=t 824    conf:(0.88)
+  65. juice-sat-cord-ms=t milk-cream=t total=high 824 ==> bread and cake=t 728    conf:(0.88)
+  66. frozen foods=t tissues-paper prd=t milk-cream=t vegetables=t 797 ==> bread and cake=t 704    conf:(0.88)
+  67. frozen foods=t cheese=t fruit=t 889 ==> bread and cake=t 785    conf:(0.88)
+  68. frozen foods=t party snack foods=t milk-cream=t fruit=t 803 ==> bread and cake=t 709    conf:(0.88)
+  69. biscuits=t party snack foods=t fruit=t vegetables=t 904 ==> bread and cake=t 798    conf:(0.88)
+  70. juice-sat-cord-ms=t biscuits=t total=high 861 ==> bread and cake=t 760    conf:(0.88)
+  71. dairy foods=t total=high 808 ==> bread and cake=t 713    conf:(0.88)
+  72. beef=t total=high 850 ==> bread and cake=t 750    conf:(0.88)
+  73. baking needs=t frozen foods=t margarine=t fruit=t 816 ==> bread and cake=t 720    conf:(0.88)
+  74. baking needs=t biscuits=t frozen foods=t fruit=t 968 ==> bread and cake=t 854    conf:(0.88)
+  75. baking needs=t milk-cream=t margarine=t vegetables=t 855 ==> bread and cake=t 754    conf:(0.88)
+  76. baking needs=t frozen foods=t milk-cream=t fruit=t 939 ==> bread and cake=t 828    conf:(0.88)
+  77. baking needs=t biscuits=t margarine=t fruit=t 829 ==> bread and cake=t 731    conf:(0.88)
+  78. baking needs=t frozen foods=t tissues-paper prd=t milk-cream=t 794 ==> bread and cake=t 700    conf:(0.88)
+  79. biscuits=t tissues-paper prd=t fruit=t vegetables=t 853 ==> bread and cake=t 752    conf:(0.88)
+  80. party snack foods=t cheese=t fruit=t 802 ==> bread and cake=t 707    conf:(0.88)
+  81. biscuits=t canned vegetables=t fruit=t 818 ==> bread and cake=t 721    conf:(0.88)
+  82. biscuits=t total=high 1228 ==> bread and cake=t 1082    conf:(0.88)
+  83. party snack foods=t tissues-paper prd=t total=high 799 ==> bread and cake=t 704    conf:(0.88)
+  84. juice-sat-cord-ms=t biscuits=t fruit=t vegetables=t 883 ==> bread and cake=t 778    conf:(0.88)
+  85. baking needs=t tissues-paper prd=t total=high 933 ==> bread and cake=t 822    conf:(0.88)
+  86. sauces-gravy-pkle=t milk-cream=t total=high 822 ==> bread and cake=t 724    conf:(0.88)
+  87. frozen foods=t party snack foods=t fruit=t vegetables=t 884 ==> bread and cake=t 778    conf:(0.88)
+  88. milk-cream=t total=high 1217 ==> bread and cake=t 1071    conf:(0.88)
+
+=== Evaluation ===
+
+Elapsed time: 4.36s
+

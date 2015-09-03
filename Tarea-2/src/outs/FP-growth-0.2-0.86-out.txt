@@ -1,0 +1,35 @@
+FPGrowth found 28 rules (displaying top 28)
+
+ 1. [fruit=t, vegetables=t, frozen foods=t, biscuits=t]: 1039 ==> [bread and cake=t]: 929   <conf:(0.89)> lift:(1.24) lev:(0.04) conv:(2.62) 
+ 2. [fruit=t, vegetables=t, total=high]: 1050 ==> [bread and cake=t]: 938   <conf:(0.89)> lift:(1.24) lev:(0.04) conv:(2.6) 
+ 3. [fruit=t, total=high]: 1243 ==> [bread and cake=t]: 1104   <conf:(0.89)> lift:(1.23) lev:(0.05) conv:(2.49) 
+ 4. [biscuits=t, total=high]: 1228 ==> [bread and cake=t]: 1082   <conf:(0.88)> lift:(1.22) lev:(0.04) conv:(2.34) 
+ 5. [milk-cream=t, total=high]: 1217 ==> [bread and cake=t]: 1071   <conf:(0.88)> lift:(1.22) lev:(0.04) conv:(2.32) 
+ 6. [frozen foods=t, total=high]: 1273 ==> [bread and cake=t]: 1117   <conf:(0.88)> lift:(1.22) lev:(0.04) conv:(2.27) 
+ 7. [fruit=t, biscuits=t, margarine=t]: 1073 ==> [bread and cake=t]: 938   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.21) 
+ 8. [party snack foods=t, total=high]: 1120 ==> [bread and cake=t]: 979   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.21) 
+ 9. [vegetables=t, total=high]: 1270 ==> [bread and cake=t]: 1110   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.21) 
+10. [fruit=t, frozen foods=t, biscuits=t]: 1309 ==> [bread and cake=t]: 1143   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.2) 
+11. [baking needs=t, total=high]: 1280 ==> [bread and cake=t]: 1117   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.19) 
+12. [vegetables=t, milk-cream=t, biscuits=t]: 1236 ==> [bread and cake=t]: 1075   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.14) 
+13. [fruit=t, baking needs=t, margarine=t]: 1129 ==> [bread and cake=t]: 981   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.12) 
+14. [margarine=t, total=high]: 1089 ==> [bread and cake=t]: 946   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.12) 
+15. [tissues-paper prd=t, total=high]: 1156 ==> [bread and cake=t]: 1004   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.12) 
+16. [vegetables=t, frozen foods=t, biscuits=t]: 1290 ==> [bread and cake=t]: 1120   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.11) 
+17. [fruit=t, milk-cream=t, margarine=t]: 1097 ==> [bread and cake=t]: 952   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.11) 
+18. [milk-cream=t, frozen foods=t, biscuits=t]: 1255 ==> [bread and cake=t]: 1089   <conf:(0.87)> lift:(1.21) lev:(0.04) conv:(2.11) 
+19. [fruit=t, vegetables=t, biscuits=t]: 1404 ==> [bread and cake=t]: 1216   <conf:(0.87)> lift:(1.2) lev:(0.04) conv:(2.08) 
+20. [milk-cream=t, baking needs=t, margarine=t]: 1142 ==> [bread and cake=t]: 987   <conf:(0.86)> lift:(1.2) lev:(0.04) conv:(2.05) 
+21. [fruit=t, milk-cream=t, biscuits=t]: 1299 ==> [bread and cake=t]: 1122   <conf:(0.86)> lift:(1.2) lev:(0.04) conv:(2.05) 
+22. [vegetables=t, milk-cream=t, margarine=t]: 1111 ==> [bread and cake=t]: 958   <conf:(0.86)> lift:(1.2) lev:(0.03) conv:(2.02) 
+23. [fruit=t, vegetables=t, margarine=t]: 1215 ==> [bread and cake=t]: 1047   <conf:(0.86)> lift:(1.2) lev:(0.04) conv:(2.02) 
+24. [milk-cream=t, baking needs=t, tissues-paper prd=t]: 1104 ==> [bread and cake=t]: 951   <conf:(0.86)> lift:(1.2) lev:(0.03) conv:(2.01) 
+25. [milk-cream=t, baking needs=t, biscuits=t]: 1232 ==> [bread and cake=t]: 1061   <conf:(0.86)> lift:(1.2) lev:(0.04) conv:(2.01) 
+26. [fruit=t, milk-cream=t, party snack foods=t]: 1115 ==> [bread and cake=t]: 960   <conf:(0.86)> lift:(1.2) lev:(0.03) conv:(2) 
+27. [fruit=t, frozen foods=t, party snack foods=t]: 1115 ==> [bread and cake=t]: 960   <conf:(0.86)> lift:(1.2) lev:(0.03) conv:(2) 
+28. [fruit=t, milk-cream=t, frozen foods=t]: 1322 ==> [bread and cake=t]: 1138   <conf:(0.86)> lift:(1.2) lev:(0.04) conv:(2) 
+
+=== Evaluation ===
+
+Elapsed time: 0.818s
+
