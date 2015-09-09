@@ -287,6 +287,8 @@ Para este experimento se hace variar la confianza mínima entre 0.85 a 0.95 para
 \section{Conclusiones}
 Podemos observar que a medida que aumenta el MinSup la cantidad de reglas encontradas disminuye, lo que es esperable, dado que se le exige una mayor frecuencia a dicha regla. En cuanto, a la confianza, se comporta de forma análoga, pero limitando en cuanto a dado que ocurre la condición, ocurre la consecuencia con cierta frecuencia.
 
+Si consideramos la calidad de las reglas encontradas, podemos darnos cuenta, que ambos algoritmos encontraron reglas muy similares, aunque FP-Growth, al remover vegetables y bread and cake, no fue capaz de encontrar una regla en ningún caso. Sin embargo, si se considera todo el dataset, se entiende que se buscan relaciones en el mismo conjunto de datos, y se esperaría coincidencias en cierta cantidad de reglas.
+
 Sobre el tiempo de ejecución, podemos darnos cuenta que FP-Growth en el peor de los casos, alcanza un tiempo cercano al $66\%$ del tiempo de Apriori, por lo que consideramos que es mas eficiente, aunque encuentra un número de reglas bastante menor, alrededor del $66\%$ de Apriori. Nuevamente caemos en la discusión de eficacia o eficiencia, lo cual depende netamente de los recursos disponibles, las necesidades y quizás, la frecuencia en que se utiliza el algoritmo sobre el dataset.
 
 \section{Anexo}\label{anexo}
