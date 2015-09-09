@@ -1,5 +1,0 @@
-No rules found!
-=== Evaluation ===
-
-Elapsed time: 0.816s
-

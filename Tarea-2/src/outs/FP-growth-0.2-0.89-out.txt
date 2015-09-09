@@ -1,9 +1,0 @@
-FPGrowth found 2 rules (displaying top 2)
-
-1. [fruit=t, vegetables=t, frozen foods=t, biscuits=t]: 1039 ==> [bread and cake=t]: 929   <conf:(0.89)> lift:(1.24) lev:(0.04) conv:(2.62) 
-2. [fruit=t, vegetables=t, total=high]: 1050 ==> [bread and cake=t]: 938   <conf:(0.89)> lift:(1.24) lev:(0.04) conv:(2.6) 
-
-=== Evaluation ===
-
-Elapsed time: 0.955s
-
