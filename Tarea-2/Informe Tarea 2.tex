@@ -22,8 +22,9 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{booktabs}
+\usepackage{MnSymbol}
+\usepackage{subcaption}
 \floatplacement{figure}{H}
-
 
 % Margenes
 \topmargin=-0.45in
@@ -46,7 +47,7 @@
 \renewcommand\headrulewidth{0.4pt}
 \renewcommand\footrulewidth{0.4pt}
 
-\setlength\parindent{0pt} % Eliminar la indentación
+% \setlength\parindent{0pt} % Eliminar la indentación
 
 %----------------------------------------------------------------------------------------
 %	Inclusión de python con systax highlight
@@ -55,6 +56,12 @@
 \renewcommand\lstlistlistingname{Scripts}
 
 \definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0}
+\lstset{prebreak=\raisebox{0ex}[0ex][0ex]
+        {\ensuremath{\rhookswarrow}}}
+\lstset{postbreak=\raisebox{0ex}[0ex][0ex]
+        {\ensuremath{\rcurvearrowse\space}}}
+\lstset{breaklines=true, breakatwhitespace=true}
+\lstset{numbers=left, numberstyle=\scriptsize}
 \lstloadlanguages{Python}
 \lstset{
   language=Python,
@@ -81,6 +88,12 @@
 \newcommand{\python}[2]{
   \begin{itemize}
     \item[]\lstinputlisting[language=Python,caption=#2,label=#1]{#1.py}
+  \end{itemize}
+}
+
+\newcommand{\bash}[2]{
+  \begin{itemize}
+    \item[]\lstinputlisting[language=Bash,caption=#2,label=#1]{#1.sh}
   \end{itemize}
 }
 
@@ -142,36 +155,136 @@
 %----------------------------------------------------------------------------------------
 % Desarrollo
 %----------------------------------------------------------------------------------------
-\section*{Introducción}
-\lipsum
+\section{Introducción}
+En el presente informe se comparan los algoritmos Apriori y FP-growth buscando reglas de asociación sobre el dataset de \textit{supermarket.arff} utilizando el software Weka\footnote{http://www.cs.waikato.ac.nz/ml/weka/}. La idea es comparar los comportamientos de ambos algoritmos al variar los parámetros de soporte mínimo y confianza.
 
-\section*{Análisis de los resultados obtenidos}
+Para el desarrollo de la experiencia se escribió un script en python capaz de ejecutar los diferentes algoritmos con los parámetros a probar utilizando Weka. Este script genera gráficos interesantes de salida, los cuales se analizan en el informe. Todos los scripts creados para esta experiencia se encuentran en~\ref{anexo}.
 
-\subsection*{Reglas interesantes}
+\section{Algoritmo Apriori}
 
-\subsubsection*{El monopolio del pan y pasteles}
+En este experimento se gráfica la confianza entre 0.85 y 0.95 utilizando un soporte mínimo de 0.1 y 0.15. En el eje Y se presenta el número de reglas encontradas para cada una de las confianzas.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/Apriori-0.1}.png}
+    \caption{Algoritmo Apriori: Confianza vs Número de reglas encontradas con soporte mínimo 0.1}
+    \label{grafico:apriori:1}
+  \end{subfigure}
+  %
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/Apriori-0.15}.png}
+    \caption{Algoritmo Apriori: Confianza vs Número de reglas encontradas con soporte mínimo 0.15}
+    \label{grafico:apriori:2}
+  \end{subfigure}
+\end{figure}
+
+Es importante destacar la diferencia entre los ejes y de ambos gráficos, hay una diferencia en magnitud de orden 10.
+
+\subsection{Reglas interesantes}
+
+\subsubsection{El monopolio del pan y pasteles}
 
 En un alto porcentaje de las reglas encontradas, sobre todo las de más alto porcentaje de confianza, encontramos que una combinación de compras implica la compra de pan o pasteles. Lo anterior nos da a inferir que estos productos son altamente consumidos y un porcentaje alto de los consumidores al comprar algún producto llevan además pan o pasteles ya que es algo que es necesario constantemente en el hogar.
 
-\subsubsection*{¿Vegetales?}
+\subsubsection{¿Vegetales?}
 
 En una situación similar pero en menor medida a la de los panes y pasteles existen múltiples relaciones entre distintas combinaciones de compras y vegetales. En particular se repite bastante combinaciones que incluyen instrumentos de cocina. Al igual que los productos anteriores nos da a inferir que estos productos son altamente consumidos y un porcentaje alto de los consumidores al comprar algún producto llevan además vegetales.
 
-\subsubsection*{Desayuno de campeones}
+\subsubsection{Desayuno de campeones}
 
-Con una confianza del 87\% podemos determinar que la gente que compra comida para el desayuno, comida congelada y margarina o pañuelos de papel, compran galletas. Lo anterior lo podemos asociar a un comportamiento cultural propio del país de origen de los datos, Estados Unidos, donde la gente que va a comprar comida para el desayuno y congelados, compran galletas.\\
+Con una confianza del 87\% podemos determinar que la gente que compra comida para el desayuno, comida congelada y margarina o pañuelos de papel, compran galletas. Lo anterior lo podemos asociar a un comportamiento cultural propio del país de origen de los datos, Estados Unidos, donde la gente que va a comprar comida para el desayuno y congelados, compran galletas.
 
-\subsubsection*{Comida de solteros}
+\subsubsection{Comida de solteros}
 
-Con una confianza del 88\% los que compran galletas y comida preparada también compran comida congelada. Lo anterior lo podemos asociar a que los que compran comida preparada compran por la misma razón comida congelada.\\
+Con una confianza del 88\% los que compran galletas y comida preparada también compran comida congelada. Lo anterior lo podemos asociar a que los que compran comida preparada compran por la misma razón comida congelada.
 
-\subsubsection*{Asado... y galletas}
+\subsubsection{Asado... y galletas}
 
 Con una confianza del 87\% los que compran galletas, carne y  herramientas para cocinar o vegetales, compran, además, comida congelada. Lo anterior lo podemos asociar a que cuando compran carne y implementos para el asado generalmente lo acompañan con alguna comida congelada fácil de cocinar.
 
-\section*{Conclusiones}
+\section{Algoritmo FP-Growth}
 
-\lipsum
+Para este experimento se hace variar la confianza mínima entre 0.85 a 0.95 para cada uno de los soportes mínimos entre 0.16 y 0.25. Se generan entonces 10 gráficos con diferentes soportes mínimos, en el eje X se presenta la confianza entre 0.85 y 0.95. El eje Y representa el número de reglas encontradas.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.16}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.16}
+    \label{grafico:FPgrowth:16}
+  \end{subfigure}
+  %
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.17}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.17}
+    \label{grafico:FPgrowth:17}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.18}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.18}
+    \label{grafico:FPgrowth:18}
+  \end{subfigure}
+  %
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.19}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.19}
+    \label{grafico:FPgrowth:19}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.2}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.20}
+    \label{grafico:FPgrowth:20}
+  \end{subfigure}
+  %
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.21}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.21}
+    \label{grafico:FPgrowth:21}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.22}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.22}
+    \label{grafico:FPgrowth:22}
+  \end{subfigure}
+  %
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.23}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.23}
+    \label{grafico:FPgrowth:23}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.24}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.24}
+    \label{grafico:FPgrowth:24}
+  \end{subfigure}
+  %
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\linewidth]{{src/img/FP-growth-0.25}.png}
+    \caption{Algoritmo FP-growth: Confianza vs Número de reglas encontradas con soporte mínimo 0.25}
+    \label{grafico:FPgrowth:25}
+  \end{subfigure}
+\end{figure}
+
+
+\section{Conclusiones}
+
+\lipsum[5]
 
 % \section*{Referencias}
 
@@ -179,9 +292,10 @@ Con una confianza del 87\% los que compran galletas, carne y  herramientas para 
 %     \item ---
 %   \end{itemize}
 
-% \section*{Anexo}
+\section{Anexo}\label{anexo}
 
-  % \python{Tarea 1}{Implementación de los algoritmos}
-  % \python{../Codigos/p3}{Pregunta 3. }
+  \python{src/plotter}{Generador de gráficos para todos los parámetros}
+  \bash{src/run}{Ejecuta Weka dado los parámetros indicados}
+  \bash{src/filter}{Filtra elementos específicos del dataset}
 
 \end{document}
